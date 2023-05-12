@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grados
+spec:
+  selector:
+    matchLabels:
+      run: grados
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: grados
+    spec:
+      containers:
+      - name: grados
+        image: miguelacvdo/micro2p3:v1
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: grados
+  labels:
+    run: grados
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 3000
+  selector:
+    run: grados

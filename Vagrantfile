@@ -1,0 +1,17 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+
+config.vm.define :servidorUbuntu do |servidorUbuntu|
+    servidorUbuntu.vm.box = "bento/ubuntu-22.04"
+    servidorUbuntu.vm.network :private_network, ip: "192.168.100.3"
+    servidorUbuntu.vm.hostname = "servidorUbuntu"
+    servidorUbuntu.vm.provider "virtualbox" do |v|
+        v.cpus = 2
+        v.memory = 3072
+    end
+
+servidorUbuntu.vm.provision "file", source: "group1-shard1of1.bin", destination: "/home/vagrant/group1-shard1of1.bin"
+  end
+end
